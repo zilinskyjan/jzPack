@@ -10,6 +10,7 @@ font_add_google("Lato", "Lato")
 font_families()
 showtext_auto() # needed to use Google Fonts above
 
+
 # Thanks to https://github.com/kbroman/broman/blob/master/R/brocolors.R
 CCalt <- c("AJ"  = "#FFDC00",
            "B6"  = "#888888",
@@ -51,8 +52,6 @@ theme_jz <- function(font = "sans", fontsize = 14) {
 }
 
 
-
-
 # Extract coefficients
 extract_term <- function(obj, var) {
   obj %>% tibble %>% filter(factor %in% {{var}})
@@ -68,42 +67,6 @@ r1sd <- function(x) {
   M <- mean(x,na.rm=T)
   sdx <- sd(x,na.rm=T)
   (x-M) / sdx
-}
-
-
-# Graded IRT from s v miller:
-# USA %>%
-#   select(uid, havedemr, strongleader, armyrule) %>% 
-#   filter_all(all_vars(!is.na(.))) -> Index
-# 
-# IndexM <- mirt(Index[ ,  2:ncol(Index)], model = 1,
-#                itemtype = "graded", SE = TRUE, verbose = FALSE)
-# 
-# fscores(IndexM, full.scores = TRUE, full.scores.SE = TRUE) %>%
-#   tbl_df() %>% 
-#   rename(lindex = F1,
-#          se_lindex = SE_F1) %>%
-#   bind_cols(Index, .) %>%
-#   select(uid, lindex, se_lindex) %>%
-#   left_join(USA, .) -> USA
-
-
-# from steve miller
-get_var_info <- function(x) {
-  require(labelled)
-  require(tidyverse)
-  var_label(x) -> b
-  data.frame(r = unique(data.frame(val_labels(x)))) -> c
-  rownames_to_column(c, "label") -> c
-  names(c) <- c("label", "numeric")
-  tribble(~label, ~numeric,
-          b, NA,
-          NA, NA) -> tribs
-  tribs[is.na(tribs)] <- ""
-  tribs$numeric <- as.numeric(tribs$numeric)
-  as.data.frame(rbind(tribs, c)) -> info
-  info[is.na(info)] <- ""
-  print(info, row.names=F)
 }
 
 r2sd <- function(x, na.rm=T) {return ((x-mean(x,na.rm=na.rm))/(2*sd(x, na.rm=na.rm)))}
