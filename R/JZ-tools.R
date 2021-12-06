@@ -11,6 +11,17 @@ font_families()
 showtext_auto() # needed to use Google Fonts above
 
 
+# Inspiration from https://www.c82.net/werner/
+werner <- c("#2c273c",
+            "#804735",
+            "#af342c",
+            "#543854",
+            "#211f20",
+            "#332d49",
+            "#8799a1",
+            "#818745",
+            "#bb7844")
+
 # Thanks to https://github.com/kbroman/broman/blob/master/R/brocolors.R
 CCalt <- c("AJ"  = "#FFDC00",
            "B6"  = "#888888",
