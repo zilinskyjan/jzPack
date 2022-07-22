@@ -2,6 +2,32 @@
 
 biggerText <- function(x=14) theme(text = element_text(size=x))
 
+
+ggJZ <- function(...){
+  ggplot(...) +
+    theme_classic() +
+    theme(text = element_text(family = "Gill Sans",size=18)) +
+    scale_color_brewer(palette="Dark2") +
+    scale_fill_brewer(palette="Dark2") +
+    theme(axis.title.y = element_text(hjust=.98)) +
+    theme(plot.caption.position = "plot",
+          plot.caption = element_text(hjust = 1,
+                                      size=12,
+                                      color="cadetblue4"))
+
+}
+
+CPlot <- function(X,year=year) {
+  X %>%
+    filter(term != "(Intercept)") %>%
+    ggplot(aes(x={{year}},y=estimate)) +
+    geom_point(size=2) +
+    geom_errorbar(aes(ymax = estimate + 1.96*std.error,
+                      ymin = estimate - 1.96*std.error),width=.3) +
+    geom_hline(yintercept=0)
+}
+
+
 library(showtext)
 # https://fonts.google.com/featured/Superfamilies
 font_add_google("Montserrat", "Montserrat")
@@ -31,6 +57,9 @@ CCalt <- c("AJ"  = "#FFDC00",
            "CAST"= "#2ECC40",
            "PWK" = "#FF4136",
            "WSB" = "#B10DC9")
+
+jzpal3 <- c("#55505c","#076873","#7e4e72")
+jzpal4 <- c("#020202","#0d324d","#7f5a83","#9da2ab")
 
 jzc <- c("#39425C","#6785D6","#BDB2D6","#8CDACA","#A4CED0","#41413b","#35564d","#9aaaa6","#F4B18E","#41413b")
 jzc2 <- c("deepskyblue4","darkslateblue","cadetblue4","turquoise4","mediumpurple4")
